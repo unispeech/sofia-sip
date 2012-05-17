@@ -194,11 +194,16 @@ int nua_stack_init(su_root_t *root, nua_t *nua)
       nta_agent_set_params(nua->nua_nta, NTATAG_UA(1), TAG_END()) < 0 ||
       nua_stack_init_transport(nua, nua->nua_args) < 0) {
     SU_DEBUG_1(("nua: initializing SIP stack failed\n"));
+    if (dnh->nh_ds->ds_soa)
+      soa_destroy(dnh->nh_ds->ds_soa), dnh->nh_ds->ds_soa = NULL;
     return -1;
   }
 
-  if (nua_stack_set_from(nua, 1, nua->nua_args) < 0)
+  if (nua_stack_set_from(nua, 1, nua->nua_args) < 0) {
+    if (dnh->nh_ds->ds_soa)
+      soa_destroy(dnh->nh_ds->ds_soa), dnh->nh_ds->ds_soa = NULL;
     return -1;
+  }
 
   if (nua->nua_prefs->ngp_detect_network_updates)
     nua_stack_launch_network_change_detector(nua);

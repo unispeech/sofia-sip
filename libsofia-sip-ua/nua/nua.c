@@ -171,6 +171,10 @@ nua_t *nua_create(su_root_t *root,
       nua->nua_magic = magic;
     }
     else {
+      su_task_deinit(nua->nua_client);
+#if HAVE_SMIME  /* Start NRC Boston */
+      sm_destroy(nua->sm);
+#endif          /* End NRC Boston */
       su_home_unref(nua->nua_home);
       nua = NULL;
     }
