@@ -113,7 +113,7 @@ SOFIAPUBFUN issize_t msg_extract_payload(msg_t *msg, msg_pub_t *mo,
 SOFIAPUBFUN issize_t msg_parse_header_fields(su_home_t *home,
 					     msg_header_t *h,
 					     char *s,
-					     int (*parser)(su_home_t *,
+					     issize_t (*parser)(su_home_t *,
 							   msg_header_t *h,
 							   char **s));
 
