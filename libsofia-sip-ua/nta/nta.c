@@ -2144,7 +2144,7 @@ int nta_agent_add_tport(nta_agent_t *self,
   char const * const * tports = tports_sip;
   int error;
   ta_list ta;
-  char **tps[9];
+  char *tps[9];
 
   if (self == NULL) {
     su_seterrno(EINVAL);
