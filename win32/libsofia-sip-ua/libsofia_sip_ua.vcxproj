@@ -99,7 +99,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..;..\..\libsofia-sip-ua\su;..\..\libsofia-sip-ua\ipt;..\..\libsofia-sip-ua\sresolv;..\..\libsofia-sip-ua\bnf;..\..\libsofia-sip-ua\url;..\..\libsofia-sip-ua\msg;..\..\libsofia-sip-ua\sip;..\..\libsofia-sip-ua\nta;..\..\libsofia-sip-ua\nua;..\..\libsofia-sip-ua\iptsec;..\..\libsofia-sip-ua\http;..\..\libsofia-sip-ua\nth;..\..\libsofia-sip-ua\nea;..\..\libsofia-sip-ua\sdp;..\..\libsofia-sip-ua\soa;..\..\libsofia-sip-ua\stun;..\..\libsofia-sip-ua\tport;..\..\libsofia-sip-ua\features;..\pthread;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions);_MSC_PT_VER=$(PlatformToolsetVersion)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -148,7 +148,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..;..\..\libsofia-sip-ua\su;..\..\libsofia-sip-ua\ipt;..\..\libsofia-sip-ua\sresolv;..\..\libsofia-sip-ua\bnf;..\..\libsofia-sip-ua\url;..\..\libsofia-sip-ua\msg;..\..\libsofia-sip-ua\sip;..\..\libsofia-sip-ua\nta;..\..\libsofia-sip-ua\nua;..\..\libsofia-sip-ua\iptsec;..\..\libsofia-sip-ua\http;..\..\libsofia-sip-ua\nth;..\..\libsofia-sip-ua\nea;..\..\libsofia-sip-ua\sdp;..\..\libsofia-sip-ua\soa;..\..\libsofia-sip-ua\stun;..\..\libsofia-sip-ua\tport;..\..\libsofia-sip-ua\features;..\pthread;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions);_MSC_PT_VER=$(PlatformToolsetVersion)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -198,7 +198,7 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..;..\..\libsofia-sip-ua\su;..\..\libsofia-sip-ua\ipt;..\..\libsofia-sip-ua\sresolv;..\..\libsofia-sip-ua\bnf;..\..\libsofia-sip-ua\url;..\..\libsofia-sip-ua\msg;..\..\libsofia-sip-ua\sip;..\..\libsofia-sip-ua\nta;..\..\libsofia-sip-ua\nua;..\..\libsofia-sip-ua\iptsec;..\..\libsofia-sip-ua\http;..\..\libsofia-sip-ua\nth;..\..\libsofia-sip-ua\nea;..\..\libsofia-sip-ua\sdp;..\..\libsofia-sip-ua\soa;..\..\libsofia-sip-ua\stun;..\..\libsofia-sip-ua\tport;..\..\libsofia-sip-ua\features;..\pthread;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions);_MSC_PT_VER=$(PlatformToolsetVersion)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -243,7 +243,7 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <AdditionalIncludeDirectories>..;..\..\libsofia-sip-ua\su;..\..\libsofia-sip-ua\ipt;..\..\libsofia-sip-ua\sresolv;..\..\libsofia-sip-ua\bnf;..\..\libsofia-sip-ua\url;..\..\libsofia-sip-ua\msg;..\..\libsofia-sip-ua\sip;..\..\libsofia-sip-ua\nta;..\..\libsofia-sip-ua\nua;..\..\libsofia-sip-ua\iptsec;..\..\libsofia-sip-ua\http;..\..\libsofia-sip-ua\nth;..\..\libsofia-sip-ua\nea;..\..\libsofia-sip-ua\sdp;..\..\libsofia-sip-ua\soa;..\..\libsofia-sip-ua\stun;..\..\libsofia-sip-ua\tport;..\..\libsofia-sip-ua\features;..\pthread;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1;%(PreprocessorDefinitions);_MSC_PT_VER=$(PlatformToolsetVersion)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -333,7 +333,9 @@
     <ClCompile Include="..\..\libsofia-sip-ua\msg\msg_tag.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\su\memcspn.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\su\memspn.c" />
-    <ClCompile Include="..\..\libsofia-sip-ua\su\strtoull.c" />
+    <ClCompile Include="..\..\libsofia-sip-ua\su\strtoull.c">
+      <ExcludedFromBuild Condition="'$(PlatformToolsetVersion)'&gt;='120'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\libsofia-sip-ua\sip\sip_basic.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\sip\sip_caller_prefs.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\sip\sip_event.c" />
