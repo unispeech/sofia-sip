@@ -888,7 +888,7 @@ sres_resolver_get_async(sres_resolver_t const *res,
   if (res == NULL)
     return su_seterrno(EFAULT), (void *)NULL;
   else if (callback == NULL)
-    return res->res_async ? (sres_async_t *)-1 : 0;
+    return res->res_async ? (sres_async_t *)(intptr_t)-1 : 0;
   else if (res->res_updcb != callback)
     return NULL;
   else
@@ -3190,7 +3190,7 @@ int sres_resolver_sockets(sres_resolver_t *res,
   int i, retval;
 
   if (!sres_resolver_set_async(res, sres_no_update,
-			       (sres_async_t *)-1, 1))
+			       (sres_async_t *)(intptr_t)-1, 1))
     return -1;
 
   retval = res->res_n_servers; assert(retval <= SRES_MAX_NAMESERVERS);
