@@ -1294,10 +1294,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\libsofia-sip-ua\su\sofia-sip\su_source.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\libsofia-sip-ua\su\sofia-sip\su_string.h"
 					>
 				</File>
@@ -1433,10 +1429,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\libsofia-sip-ua\msg\msg_bnf.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\libsofia-sip-ua\msg\sofia-sip\msg_buffer.h"
 					>
 				</File>
@@ -1493,19 +1485,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\libsofia-sip-ua\sip\sip_extensions.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\libsofia-sip-ua\sip\sofia-sip\sip_hclasses.h"
 					>
 				</File>
 				<File
 					RelativePath="..\..\libsofia-sip-ua\sip\sofia-sip\sip_header.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\libsofia-sip-ua\sip\sip_internal.h"
 					>
 				</File>
 				<File

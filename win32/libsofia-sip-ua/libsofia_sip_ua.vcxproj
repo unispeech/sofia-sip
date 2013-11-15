@@ -473,7 +473,6 @@
     <ClInclude Include="..\..\libsofia-sip-ua\su\su_module_debug.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\su\sofia-sip\su_os_nw.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\su\su_port.h" />
-    <ClInclude Include="..\..\libsofia-sip-ua\su\sofia-sip\su_source.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\su\sofia-sip\su_string.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\su\sofia-sip\su_strlst.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\su\sofia-sip\su_tag.h" />
@@ -501,7 +500,6 @@
     <ClInclude Include="..\..\libsofia-sip-ua\bnf\sofia-sip\hostdomain.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg_addr.h" />
-    <ClInclude Include="..\..\libsofia-sip-ua\msg\msg_bnf.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg_buffer.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg_date.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg_header.h" />
@@ -515,10 +513,8 @@
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg_tag_class.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\msg\sofia-sip\msg_types.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\sip\sofia-sip\sip.h" />
-    <ClInclude Include="..\..\libsofia-sip-ua\sip\sip_extensions.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\sip\sofia-sip\sip_hclasses.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\sip\sofia-sip\sip_header.h" />
-    <ClInclude Include="..\..\libsofia-sip-ua\sip\sip_internal.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\sip\sofia-sip\sip_parser.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\sip\sofia-sip\sip_protos.h" />
     <ClInclude Include="..\..\libsofia-sip-ua\sip\sofia-sip\sip_status.h" />
