@@ -64,7 +64,7 @@
 				WarnAsError="true"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
 			<Tool
@@ -115,8 +115,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy dll to win32 directory"
-				CommandLine="copy Debug\libsofia_sip_ua.dll .."
 			/>
 		</Configuration>
 		<Configuration
@@ -166,7 +164,7 @@
 				WarnAsError="false"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
+				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
 			<Tool
@@ -217,8 +215,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy dll to win32 directory"
-				CommandLine="copy $(PlatformName)\Debug\libsofia_sip_ua.dll ..\$(PlatformName)"
 			/>
 		</Configuration>
 		<Configuration
@@ -269,6 +265,7 @@
 				WarnAsError="true"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
 			<Tool
@@ -368,6 +365,7 @@
 				WarnAsError="false"
 				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
 				CompileAs="1"
 			/>
 			<Tool
