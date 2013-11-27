@@ -43,6 +43,8 @@
 /** Current Sofia package name and version. @showinitializer */
 #define SOFIA_SIP_NAME_VERSION   "@PACKAGE_NAME@-@PACKAGE_VERSION@"
 
+#if !defined(RC_INVOKED)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -63,5 +65,7 @@ SOFIAPUBVAR char const * sofia_sip_has_ipv6;
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* ! RC_INVOKED */
 
 #endif

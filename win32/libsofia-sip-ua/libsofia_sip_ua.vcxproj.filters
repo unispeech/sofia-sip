@@ -132,6 +132,9 @@
     <Filter Include="Header Files\soa headers">
       <UniqueIdentifier>{688f0908-b3cd-41c1-8fed-49af7d04374a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{0ba1f8b8-a0ce-49c8-a406-95b1987e5d56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libsofia-sip-ua\su\inet_ntop.c">
@@ -1009,5 +1012,10 @@
     <ClInclude Include="..\..\libsofia-sip-ua\soa\sofia-sip\soa_tag.h">
       <Filter>Header Files\soa headers</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="libsofia_sip_ua.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -63,6 +63,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="1035"
+				AdditionalIncludeDirectories="..\..\libsofia-sip-ua\features"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -147,6 +148,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="1035"
+				AdditionalIncludeDirectories="..\..\libsofia-sip-ua\features"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -233,6 +235,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="1035"
+				AdditionalIncludeDirectories="..\..\libsofia-sip-ua\features"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -319,6 +322,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="1035"
+				AdditionalIncludeDirectories="..\..\libsofia-sip-ua\features"
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
@@ -922,6 +926,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\libsofia-sip-ua\nua\nua_client.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\libsofia-sip-ua\nua\nua_client.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\libsofia-sip-ua\nua\nua_common.c"
 					>
 				</File>
@@ -974,6 +986,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\libsofia-sip-ua\nua\nua_server.c"
+					>
+				</File>
+				<File
+					RelativePath="..\..\libsofia-sip-ua\nua\nua_server.h"
+					>
+				</File>
+				<File
 					RelativePath="..\..\libsofia-sip-ua\nua\nua_session.c"
 					>
 				</File>
@@ -983,22 +1003,6 @@
 				</File>
 				<File
 					RelativePath="..\..\libsofia-sip-ua\nua\nua_stack.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\libsofia-sip-ua\nua\nua_client.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\libsofia-sip-ua\nua\nua_client.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\libsofia-sip-ua\nua\nua_server.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\libsofia-sip-ua\nua\nua_server.h"
 					>
 				</File>
 				<File
@@ -1527,11 +1531,11 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\libsofia-sip-ua\sresolv\sofia-sip\sresolv.h"
+					RelativePath="..\..\libsofia-sip-ua\sresolv\sofia-sip\sres_sip.h"
 					>
 				</File>
 				<File
-					RelativePath="..\..\libsofia-sip-ua\sresolv\sofia-sip\sres_sip.h"
+					RelativePath="..\..\libsofia-sip-ua\sresolv\sofia-sip\sresolv.h"
 					>
 				</File>
 			</Filter>
@@ -1695,6 +1699,14 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			>
+			<File
+				RelativePath=".\libsofia_sip_ua.rc"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
