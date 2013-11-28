@@ -958,7 +958,7 @@ nta_agent_t *nta_agent_create(su_root_t *root,
     }
     SU_DEBUG_9(("nta_agent_create: initialized %s\n", "hash tables"));
 
-    if (contact_url != (url_string_t *)-1 &&
+    if (contact_url != (url_string_t *)(intptr_t)-1 &&
 	nta_agent_add_tport(agent, contact_url, ta_tags(ta)) < 0) {
       SU_DEBUG_7(("nta_agent_create: failure with %s\n", "transport"));
       goto deinit;
@@ -7951,7 +7951,7 @@ nta_outgoing_t *outgoing_create(nta_agent_t *agent,
     void *retval;
 
     if (orq->orq_status < 300)
-      retval = (void *)-1;	/* NONE */
+      retval = (void *)(intptr_t)-1;	/* NONE */
     else
       retval = NULL, orq->orq_request = NULL;
 
@@ -10957,7 +10957,7 @@ nta_reliable_t *reliable_mreply(nta_incoming_t *irq,
 
     irq->irq_reliable = rel;
 
-    return callback ? rel : (nta_reliable_t *)-1;
+    return callback ? rel : (nta_reliable_t *)(intptr_t)-1;
   }
 
   msg_destroy(msg);

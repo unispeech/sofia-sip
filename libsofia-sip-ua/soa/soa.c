@@ -580,7 +580,7 @@ int soa_base_set_params(soa_session_t *ss, tagi_t const *tags)
     change_session = 1;
   }
 
-  if (hold == (char const *)1)
+  if (hold == (char const *)(intptr_t)1)
     hold = "*";
 
   if (!su_casematch(hold, ss->ss_hold)) {

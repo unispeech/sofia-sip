@@ -64,7 +64,7 @@ size_t urltag_xtra(tagi_t const *t, size_t offset)
 {
   url_t const *url = (url_t const *)t->t_value;
 
-  if (url == NULL || url == (url_t *)-1)
+  if (url == NULL || url == (url_t *)(intptr_t)-1)
     return 0;
   else if (URL_STRING_P(url))
     return t_str_xtra(t, offset);
@@ -76,7 +76,7 @@ tagi_t *urltag_dup(tagi_t *dst, tagi_t const *src, void **bb)
 {
   url_t const *url = (url_t const *)src->t_value;
 
-  if (url == NULL || url == (url_t *)-1) {
+  if (url == NULL || url == (url_t *)(intptr_t)-1) {
     dst->t_tag = src->t_tag;
     dst->t_value = src->t_value;
   }
