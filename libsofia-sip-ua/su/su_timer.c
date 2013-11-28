@@ -996,7 +996,7 @@ int su_timer_deferrable(su_timer_t *t, int value)
   value = value != 0;
 
   /* Check for fast path: the value is unchanged */
-  if (t->sut_deferrable == value)
+  if (t->sut_deferrable == (unsigned int) value)
     return 0;
 
   live_timer = SU_TIMER_IS_SET(t);
