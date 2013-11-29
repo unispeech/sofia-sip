@@ -19,8 +19,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -42,10 +42,7 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
 				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug\libsofia_sip_ua.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -53,19 +50,11 @@
 				AdditionalIncludeDirectories="..,..\..\libsofia-sip-ua\su,..\..\libsofia-sip-ua\ipt,..\..\libsofia-sip-ua\sresolv,..\..\libsofia-sip-ua\bnf,..\..\libsofia-sip-ua\url,..\..\libsofia-sip-ua\msg,..\..\libsofia-sip-ua\sip,..\..\libsofia-sip-ua\nta,..\..\libsofia-sip-ua\nua,..\..\libsofia-sip-ua\iptsec,..\..\libsofia-sip-ua\http,..\..\libsofia-sip-ua\nth,..\..\libsofia-sip-ua\nea,..\..\libsofia-sip-ua\sdp,..\..\libsofia-sip-ua\soa,..\..\libsofia-sip-ua\stun,..\..\libsofia-sip-ua\tport,..\..\libsofia-sip-ua\features,..\pthread,."
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1"
 				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug\libsofia_sip_ua.pch"
-				AssemblerListingLocation=".\Debug\"
-				ObjectFile=".\Debug\"
-				ProgramDataBaseFileName=".\Debug\"
-				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
-				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-				CompileAs="1"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -81,13 +70,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib advapi32.lib iphlpapi.lib pthreadVC2.lib"
-				OutputFile=".\Debug\libsofia_sip_ua.dll"
+				OutputFile="$(OutDir)\libsofia_sip_ua.dll"
 				LinkIncremental="2"
-				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\pthread\Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug\libsofia_sip_ua.pdb"
-				ImportLibrary=".\Debug\libsofia_sip_ua.lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -101,8 +87,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\Debug\libsofia_sip_ua.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -115,14 +99,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy dll to win32 directory"
-				CommandLine="copy Debug\libsofia_sip_ua.dll .."
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory=".\$(PlatformName)\Debug"
-			IntermediateDirectory=".\$(PlatformName)\Debug"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -144,10 +126,7 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="_DEBUG"
 				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
 				TargetEnvironment="3"
-				TypeLibraryName=".\$(PlatformName)\Debug\libsofia_sip_ua.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -155,19 +134,11 @@
 				AdditionalIncludeDirectories="..,..\..\libsofia-sip-ua\su,..\..\libsofia-sip-ua\ipt,..\..\libsofia-sip-ua\sresolv,..\..\libsofia-sip-ua\bnf,..\..\libsofia-sip-ua\url,..\..\libsofia-sip-ua\msg,..\..\libsofia-sip-ua\sip,..\..\libsofia-sip-ua\nta,..\..\libsofia-sip-ua\nua,..\..\libsofia-sip-ua\iptsec,..\..\libsofia-sip-ua\http,..\..\libsofia-sip-ua\nth,..\..\libsofia-sip-ua\nea,..\..\libsofia-sip-ua\sdp,..\..\libsofia-sip-ua\soa,..\..\libsofia-sip-ua\stun,..\..\libsofia-sip-ua\tport,..\..\libsofia-sip-ua\features,..\pthread,."
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;LIBSOFIA_SIP_UA_EXPORTS;IN_LIBSOFIA_SIP_UA=1;IN_LIBSOFIA_SRES=1"
 				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\$(PlatformName)\Debug\libsofia_sip_ua.pch"
-				AssemblerListingLocation=".\$(PlatformName)\Debug\"
-				ObjectFile=".\$(PlatformName)\Debug\"
-				ProgramDataBaseFileName=".\$(PlatformName)\Debug\"
-				BrowseInformation="1"
 				WarningLevel="4"
-				WarnAsError="false"
-				SuppressStartupBanner="true"
+				WarnAsError="true"
 				Detect64BitPortabilityProblems="true"
-				DebugInformationFormat="4"
-				CompileAs="1"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -183,13 +154,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib advapi32.lib iphlpapi.lib pthreadVC2.lib"
-				OutputFile=".\$(PlatformName)\Debug\libsofia_sip_ua.dll"
+				OutputFile="$(OutDir)\libsofia_sip_ua.dll"
 				LinkIncremental="2"
-				SuppressStartupBanner="false"
 				AdditionalLibraryDirectories="..\pthread\$(PlatformName)\Debug"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\$(PlatformName)\Debug\libsofia_sip_ua.pdb"
-				ImportLibrary=".\$(PlatformName)\Debug\libsofia_sip_ua.lib"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -203,8 +171,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\$(PlatformName)\Debug\libsofia_sip_ua.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -217,14 +183,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy dll to win32 directory"
-				CommandLine="copy $(PlatformName)\Debug\libsofia_sip_ua.dll ..\$(PlatformName)"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -246,10 +210,7 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
 				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release\libsofia_sip_ua.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -260,16 +221,10 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release\libsofia_sip_ua.pch"
-				AssemblerListingLocation=".\Release\"
-				ObjectFile=".\Release\"
-				ProgramDataBaseFileName=".\Release\"
-				BrowseInformation="1"
 				WarningLevel="4"
 				WarnAsError="true"
-				SuppressStartupBanner="true"
 				Detect64BitPortabilityProblems="true"
-				CompileAs="1"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -285,12 +240,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib advapi32.lib iphlpapi.lib pthreadVC2.lib"
-				OutputFile=".\Release\libsofia_sip_ua.dll"
+				OutputFile="$(OutDir)\libsofia_sip_ua.dll"
 				LinkIncremental="1"
-				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\pthread\Release"
-				ProgramDatabaseFile=".\Release\libsofia_sip_ua.pdb"
-				ImportLibrary=".\Release\libsofia_sip_ua.lib"
+				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -304,8 +257,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\Release\libsofia_sip_ua.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -322,8 +273,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory=".\$(PlatformName)\Release"
-			IntermediateDirectory=".\$(PlatformName)\Release"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
@@ -345,10 +296,7 @@
 				Name="VCMIDLTool"
 				PreprocessorDefinitions="NDEBUG"
 				MkTypLibCompatible="true"
-				SuppressStartupBanner="true"
 				TargetEnvironment="3"
-				TypeLibraryName=".\$(PlatformName)\Release\libsofia_sip_ua.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
@@ -359,16 +307,10 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\$(PlatformName)\Release\libsofia_sip_ua.pch"
-				AssemblerListingLocation=".\$(PlatformName)\Release\"
-				ObjectFile=".\$(PlatformName)\Release\"
-				ProgramDataBaseFileName=".\$(PlatformName)\Release\"
-				BrowseInformation="1"
 				WarningLevel="4"
-				WarnAsError="false"
-				SuppressStartupBanner="true"
+				WarnAsError="true"
 				Detect64BitPortabilityProblems="true"
-				CompileAs="1"
+				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -384,12 +326,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ws2_32.lib advapi32.lib iphlpapi.lib pthreadVC2.lib"
-				OutputFile=".\$(PlatformName)\Release\libsofia_sip_ua.dll"
+				OutputFile="$(OutDir)\libsofia_sip_ua.dll"
 				LinkIncremental="1"
-				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\pthread\$(PlatformName)\Release"
-				ProgramDatabaseFile=".\$(PlatformName)\Release\libsofia_sip_ua.pdb"
-				ImportLibrary=".\$(PlatformName)\Release\libsofia_sip_ua.lib"
+				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -403,8 +343,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\$(PlatformName)\Release\libsofia_sip_ua.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
