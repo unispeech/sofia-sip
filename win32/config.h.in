@@ -323,7 +323,11 @@
 #define HAVE_STRING_H 1
 
 /* Define to 1 if you have the `strtoull' function. */
+#if defined(_MSC_PT_VER) && (_MSC_PT_VER >= 120)
+#define HAVE_STRTOULL 1
+#else
 #undef HAVE_STRTOULL
+#endif
 
 /* Define to 1 if your CC supports C99 struct initialization */
 #undef HAVE_STRUCT_KEYWORDS
