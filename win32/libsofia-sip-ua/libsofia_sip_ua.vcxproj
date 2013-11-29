@@ -58,6 +58,7 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x040b</Culture>
+      <AdditionalIncludeDirectories>..\..\libsofia-sip-ua\features</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;advapi32.lib;iphlpapi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -85,6 +86,7 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x040b</Culture>
+      <AdditionalIncludeDirectories>..\..\libsofia-sip-ua\features</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;advapi32.lib;iphlpapi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -114,6 +116,7 @@
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x040b</Culture>
+      <AdditionalIncludeDirectories>..\..\libsofia-sip-ua\features</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;advapi32.lib;iphlpapi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -143,6 +146,7 @@
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x040b</Culture>
+      <AdditionalIncludeDirectories>..\..\libsofia-sip-ua\features</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;advapi32.lib;iphlpapi.lib;pthreadVC2.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -454,6 +458,9 @@
       <Project>{df018947-0fff-4eb3-bdee-441dc81da7a4}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="libsofia_sip_ua.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
