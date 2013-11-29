@@ -18,5 +18,4 @@
 *.ipch
 *.lib
 *.bsc
-*.vcxproj.filters
 *.vcxproj.user
