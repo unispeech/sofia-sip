@@ -50,9 +50,13 @@
 #include <limits.h>
 #include <errno.h>
 
-/** Port based on su_wait() aka WSAWaitForMultipleEvents. */
+/** Port based on su_wait() aka WSAWaitForMultipleEvents or WSAPoll. */
 
+#if SU_HAVE_WSAPOLL
+#define INDEX_MAX (0x7fffffff)
+#else
 #define INDEX_MAX (64)
+#endif
 
 struct su_wsaevent_port_s {
   su_socket_port_t sup_base[1];
@@ -583,7 +587,7 @@ int su_wsevent_port_wait_events(su_port_t *self, su_duration_t tout)
   i = su_wait(waits, (unsigned)n, tout);
 
   if (i >= 0 && i < n) {
-#if 0
+#if SU_HAVE_WSAPOLL
     /* poll() can return events for multiple wait objects */
     if (self->sup_multishot) {
       unsigned version = self->sup_registers;
@@ -603,7 +607,7 @@ int su_wsevent_port_wait_events(su_port_t *self, su_duration_t tout)
     }
 #else
     if (0) ;
-#endif
+#endif /* SU_HAVE_WSAPOLL */
     else {
       root = self->sup_wait_roots[i];
       self->sup_wait_cbs[i](root ? su_root_magic(root) : NULL,

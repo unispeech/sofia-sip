@@ -191,8 +191,8 @@ SOFIAPUBFUN su_duration_t su_timer_queue_timeout(su_timer_queue_t const *);
 
 /* React to multiple events per one poll() to make sure
  * that high-priority events can never completely mask other events.
- * Enabled by default on all platforms except WIN32 */
-#if !defined(WIN32)
+ * Enabled by default on all platforms except WIN32 without WSAPoll support. */
+#if !defined(WIN32) || SU_HAVE_WSAPOLL
 #define SU_ENABLE_MULTISHOT_POLL 1
 #else
 #define SU_ENABLE_MULTISHOT_POLL 0

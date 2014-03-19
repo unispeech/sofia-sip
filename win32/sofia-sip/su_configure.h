@@ -41,6 +41,7 @@
 #define SU_HAVE_WIN32		1
 #define SU_HAVE_WINSOCK         1
 #define SU_HAVE_WINSOCK2        1
+#define SU_HAVE_WSAPOLL         0
 #define SU_HAVE_POLL            0
 #define SU_HAVE_BSDSOCK         0
 #define SU_HAVE_STDINT          (0)

@@ -132,6 +132,29 @@ void su_wait_init(su_wait_t dst[1])
 int su_wait_create(su_wait_t *newwait, su_socket_t socket, int events)
 {
 #if SU_HAVE_WINSOCK
+
+#if SU_HAVE_WSAPOLL
+  
+  unsigned long bm = 1;
+  int clear = SU_WAIT_ERR | SU_WAIT_HUP;
+
+  if (newwait == NULL || events == 0 || socket == INVALID_SOCKET) {
+    su_seterrno(EINVAL);
+    return -1;
+  }
+
+  if (ioctlsocket(socket, FIONBIO, &bm) < 0)
+    return -1;
+
+  if(events & clear)
+    events &= ~clear;
+
+  newwait->fd = socket;
+  newwait->events = events;
+  newwait->revents = 0;
+
+#else
+
   HANDLE h = WSACreateEvent();
 
   if (newwait == NULL || events == 0 || socket == INVALID_SOCKET) {
@@ -149,6 +172,8 @@ int su_wait_create(su_wait_t *newwait, su_socket_t socket, int events)
   }
 
   *newwait = h;
+
+#endif /* SU_HAVE_WSAPOLL */
 
 #elif SU_HAVE_POLL || HAVE_SELECT
   int mode;
@@ -185,12 +210,20 @@ int su_wait_create(su_wait_t *newwait, su_socket_t socket, int events)
 int su_wait_destroy(su_wait_t *waitobj)
 {
 #if SU_HAVE_WINSOCK
+#if SU_HAVE_WSAPOLL
+  su_wait_t w0 = { INVALID_SOCKET, 0, 0 };
+  assert(waitobj != NULL);
+  if (waitobj) {
+    *waitobj = w0;
+  }
+#else
   su_wait_t w0 = NULL;
   assert(waitobj != NULL);
   if (*waitobj) {
     WSACloseEvent(*waitobj);
     *waitobj = w0;
   }
+#endif /* SU_HAVE_WSAPOLL */
 #else
   su_wait_t w0 = { INVALID_SOCKET, 0, 0 };
   assert(waitobj != NULL);
@@ -209,7 +242,7 @@ int su_wait_destroy(su_wait_t *waitobj)
  *
  * In Unix, this is @c poll() or @c select().
  *
- * In Windows, this is @c WSAWaitForMultipleEvents().
+ * In Windows, this is @c WSAWaitForMultipleEvents() or @c WSAPoll().
  *
  * @param waits    array of wait objects
  * @param n        number of wait objects in array waits
@@ -222,6 +255,28 @@ int su_wait_destroy(su_wait_t *waitobj)
 int su_wait(su_wait_t waits[], unsigned n, su_duration_t timeout)
 {
 #if SU_HAVE_WINSOCK
+
+#if SU_HAVE_WSAPOLL
+  for (;;) {
+    int i = WSAPoll(waits, n, timeout);
+
+    if (i == 0)
+      return SU_WAIT_TIMEOUT;
+
+    if (i > 0) {
+      unsigned j;
+      for (j = 0; j < n; j++) {
+	    if (waits[j].revents)
+	      return j;
+      }
+    }
+
+    if (errno == EINTR)
+      continue;
+
+    return -1;
+  }
+#else
   DWORD i;
 
   if (n > 0)
@@ -235,6 +290,7 @@ int su_wait(su_wait_t waits[], unsigned n, su_duration_t timeout)
     return SOCKET_ERROR;
   else
     return i;
+#endif /* SU_HAVE_WSAPOLL */
 
 #elif SU_HAVE_POLL || HAVE_SELECT
   for (;;) {
@@ -271,12 +327,17 @@ int su_wait(su_wait_t waits[], unsigned n, su_duration_t timeout)
 int su_wait_events(su_wait_t *waitobj, su_socket_t s)
 {
 #if SU_HAVE_WINSOCK
+
+#if SU_HAVE_WSAPOLL
+  return waitobj->revents;
+#else
   WSANETWORKEVENTS net_events;
 
   if (WSAEnumNetworkEvents(s, *waitobj, &net_events) != 0)
     return SOCKET_ERROR;
 
   return net_events.lNetworkEvents;
+#endif /* SU_HAVE_WSAPOLL */
 
 #elif SU_HAVE_POLL || HAVE_SELECT
   /* poll(e, 1, 0); */
@@ -299,6 +360,16 @@ int su_wait_events(su_wait_t *waitobj, su_socket_t s)
 int su_wait_mask(su_wait_t *waitobj, su_socket_t s, int events)
 {
 #if SU_HAVE_WINSOCK
+
+#if SU_HAVE_WSAPOLL
+  int clear = SU_WAIT_ERR | SU_WAIT_HUP;
+  if(events & clear)
+    events &= ~clear;
+
+  waitobj->fd = s;
+  waitobj->events = events;
+  waitobj->revents = 0;
+#else
   HANDLE e = *waitobj;
 
   if (WSAEventSelect(s, e, events) != 0) {
@@ -307,6 +378,7 @@ int su_wait_mask(su_wait_t *waitobj, su_socket_t s, int events)
     WSASetLastError(error);
     return -1;
   }
+#endif /* SU_HAVE_WSAPOLL */
 
 #elif SU_HAVE_POLL || HAVE_SELECT
   waitobj->fd = s;

@@ -115,6 +115,27 @@ SOFIA_BEGIN_DECLS
 
 #elif SU_HAVE_WINSOCK
 
+#if SU_HAVE_WSAPOLL
+
+#define SU_WAIT_CMP(x, y) \
+ (((x).fd - (y).fd) ? ((x).fd - (y).fd) : ((x).events - (y).events))
+
+#define SU_WAIT_IN      (POLLIN)
+#define SU_WAIT_OUT     (POLLOUT)
+#define SU_WAIT_CONNECT (POLLOUT)
+#define SU_WAIT_ERR     (POLLERR)
+#define SU_WAIT_HUP     (POLLHUP)
+#define SU_WAIT_ACCEPT  (POLLIN)
+
+#define SU_WAIT_FOREVER (-1)
+#define SU_WAIT_TIMEOUT (0) /* ??? */
+
+#define SU_WAIT_INIT    { INVALID_SOCKET, 0, 0 }
+
+#define SU_WAIT_MAX    (0x7fffffff)
+
+#else
+
 #define SU_WAIT_CMP(x, y) ((intptr_t)(x) - (intptr_t)(y))
 
 #define SU_WAIT_IN      (FD_READ)
@@ -130,6 +151,9 @@ SOFIA_BEGIN_DECLS
 #define SU_WAIT_INIT    NULL
 
 #define SU_WAIT_MAX    (64)
+
+#endif /* SU_HAVE_WSAPOLL */
+
 
 #else
 /* If nothing works, try these */
@@ -178,7 +202,11 @@ typedef struct kevent su_wait_t;
 #elif SU_HAVE_POLL
 typedef struct pollfd su_wait_t;
 #elif SU_HAVE_WINSOCK
+#if SU_HAVE_WSAPOLL
+typedef struct pollfd su_wait_t;
+#else
 typedef HANDLE su_wait_t;
+#endif /* SU_HAVE_WSAPOLL */
 #else
 /* typedef struct os_specific su_wait_t; */
 typedef struct pollfd su_wait_t;
