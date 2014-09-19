@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------
 # Header paths
 
-INCLUDES = 		-I$(srcdir)/../url -I../url \
+AM_CPPFLAGS = 		-I$(srcdir)/../url -I../url \
 			-I$(srcdir)/../bnf -I../bnf \
 			-I$(srcdir)/../su -I../su
 
@@ -26,7 +26,7 @@ check_PROGRAMS +=	check_sres_sip
 TESTS +=		check_sres_sip
 
 check_sres_sip_LDADD = 	$(LDADD) ${top_builddir}/s2check/libs2.a @CHECK_LIBS@
-INCLUDES +=		-I${top_srcdir}/s2check
+AM_CPPFLAGS +=		-I${top_srcdir}/s2check
 endif
 
 TESTS += 		torture_sresolv run_test_sresolv

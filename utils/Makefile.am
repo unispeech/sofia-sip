@@ -26,7 +26,7 @@ EXTRA_DIST = utils.docs
 
 include $(top_srcdir)/rules/sofia.am
 
-INCLUDES = 	${INTERNAL_INCLUDES}
+AM_CPPFLAGS = 	${INTERNAL_INCLUDES}
 
 built-sources clean-built-sources valcheck:
 
