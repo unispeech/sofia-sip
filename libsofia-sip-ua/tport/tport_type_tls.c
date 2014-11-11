@@ -455,7 +455,7 @@ int tport_tls_recv(tport_t *self)
 
   tls_buf = tls_read_buffer(tlstp->tlstp_context, N);
 
-  msg_set_address(msg, self->tp_addr, self->tp_addrlen);
+  msg_set_address(msg, self->tp_addr, (socklen_t)self->tp_addrlen);
 
   for (i = 0, n = 0; i < veclen; i++) {
     m = iovec[i].mv_len; assert(N >= n + m);
@@ -525,7 +525,7 @@ ssize_t tport_tls_send(tport_t const *self,
     if (j == i)
       buf = iov[i].siv_base, m = iov[i].siv_len, j++;
     else
-      iov[j].siv_base = buf, iov[j].siv_len = m;
+      iov[j].siv_base = buf, iov[j].siv_len = (su_ioveclen_t)m;
 
     nerror = tls_write(tlstp->tlstp_context, buf, m);
 #endif

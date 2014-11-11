@@ -177,7 +177,7 @@ static int passwd_cb(char *buf, int size, int rwflag, void *userdata)
 		strncpy(buf, tlsi->passphrase, size);
 		buf[size - 1] = '\0';
 
-		return strlen(tlsi->passphrase);
+		return (int)strlen(tlsi->passphrase);
 	}
 	return 0;
 }
@@ -607,7 +607,7 @@ int tls_post_connection_check(tport_t *self, tls_t *tls)
     tls->x509_verified = 1;
 
   if (tport_log->log_level >= 7) {
-    int i, len = su_strlst_len(tls->subjects);
+    int i, len = (int)su_strlst_len(tls->subjects);
     for (i=0; i < len; i++)
       SU_DEBUG_7(("%s(%p): Peer Certificate Subject %i: %s\n", \
 	      __func__, (void *)self, i, su_strlst_item(tls->subjects, i)));
@@ -628,7 +628,7 @@ int tls_post_connection_check(tport_t *self, tls_t *tls)
       su_strlst_t const *subjects = self->tp_pri->pri_primary->tp_subjects;
       int i, items;
 
-      items = subjects ? su_strlst_len(subjects) : 0;
+      items = subjects ? (int)su_strlst_len(subjects) : 0;
       if (items == 0)
         return X509_V_OK;
 
@@ -811,9 +811,9 @@ ssize_t tls_write(tls_t *tls, void *buf, size_t size)
 
   tls->write_events = 0;
 
-  ret = SSL_write(tls->con, buf, size);
+  ret = SSL_write(tls->con, buf, (int)size);
   if (ret < 0)
-    return tls_error(tls, ret, "tls_write: SSL_write", buf, size);
+    return tls_error(tls, ret, "tls_write: SSL_write", buf, (int)size);
 
   return ret;
 }
@@ -833,9 +833,12 @@ int tls_want_write(tls_t *tls, int events)
 
     ret = tls_write(tls, buf, size);
 
-    if (ret >= 0)
+	if (ret >= 0) {
       /* Restore buf */
-      return tls->write_buffer = buf, tls->write_buffer_len = ret;
+      tls->write_buffer = buf;
+      tls->write_buffer_len = ret;
+      return ret;
+	}
     else if (errno == EAGAIN)
       return 0;
     else

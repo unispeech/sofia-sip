@@ -589,7 +589,7 @@ int stun_obtain_shared_secret(stun_handle_t *sh,
   /* Do an asynchronous connect(). Three error codes are ok,
    * others cause return -1. */
   if (connect(s, (struct sockaddr *) &sh->sh_pri_addr,
-	      ai->ai_addrlen) == SOCKET_ERROR) {
+	      (socklen_t)ai->ai_addrlen) == SOCKET_ERROR) {
     err = su_errno();
     if (err != EINPROGRESS && err != EAGAIN && err != EWOULDBLOCK) {
       return STUN_ERROR(err, connect);
