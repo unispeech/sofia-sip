@@ -153,13 +153,17 @@ void tport_stamp(tport_t const *self, msg_t *msg,
   char *comp = "";
   char name[SU_ADDRSIZE] = "";
   su_sockaddr_t const *su;
-  unsigned short second, minute, hour;
+  struct tm timeinfo;
+  time_t ltime;
 
   assert(self); assert(msg);
 
-  second = (unsigned short)(now.tv_sec % 60);
-  minute = (unsigned short)((now.tv_sec / 60) % 60);
-  hour = (unsigned short)((now.tv_sec / 3600) % 24);
+  ltime = now.tv_sec - SU_TIME_EPOCH;
+#ifdef _WIN32
+  localtime_s(&timeinfo,&ltime);
+#else
+  localtime_r(&ltime, &timeinfo);
+#endif
 
   su = msg_addr(msg);
 
@@ -176,10 +180,11 @@ void tport_stamp(tport_t const *self, msg_t *msg,
   su_inet_ntop(su->su_family, SU_ADDR(su), name, sizeof(name));
 
   snprintf(stamp, 128,
-	   "%s "MOD_ZU" bytes %s %s/[%s]:%u%s%s at %02u:%02u:%02u.%06lu:\n",
+	   "%04u-%02u-%02u %02u:%02u:%02u.%06lu %s "MOD_ZU" bytes %s %s/[%s]:%u%s%s\n",
+	   timeinfo.tm_year+1900, timeinfo.tm_mon+1, timeinfo.tm_mday,
+	   timeinfo.tm_hour, timeinfo.tm_min, timeinfo.tm_sec, now.tv_usec,
 	   what, (size_t)n, via, self->tp_name->tpn_proto,
-	   name, ntohs(su->su_port), label[0] ? label : "", comp,
-	   hour, minute, second, now.tv_usec);
+	   name, ntohs(su->su_port), label[0] ? label : "", comp);
 }
 
 /** Dump the data from the iovec */
