@@ -635,6 +635,12 @@
     <ClCompile Include="..\..\libsofia-sip-ua\soa\soa_tag_ref.c">
       <Filter>Source Files\soa</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\libsofia-sip-ua\tport\tport_tls.c">
+      <Filter>Source Files\tport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\libsofia-sip-ua\tport\tport_type_tls.c">
+      <Filter>Source Files\tport</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\libsofia-sip-ua\stun\stun_internal.h">

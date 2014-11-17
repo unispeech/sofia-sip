@@ -33,6 +33,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(SolutionDir)\build\props\openssl.props" Condition="exists('$(SolutionDir)\build\props\openssl.props')" Label="OpenSslProps" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -195,6 +196,12 @@
     <ClCompile Include="..\..\libsofia-sip-ua\ipt\base64.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\ipt\rc4.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\ipt\token64.c" />
+    <ClCompile Include="..\..\libsofia-sip-ua\tport\tport_tls.c">
+      <ExcludedFromBuild Condition=" '$(OpenSslImported)' == '' ">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\libsofia-sip-ua\tport\tport_type_tls.c">
+      <ExcludedFromBuild Condition=" '$(OpenSslImported)' == '' ">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\libsofia-sip-ua\url\url.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\url\url_tag.c" />
     <ClCompile Include="..\..\libsofia-sip-ua\url\url_tag_ref.c" />
