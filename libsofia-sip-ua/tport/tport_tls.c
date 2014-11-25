@@ -404,17 +404,15 @@ void tls_free(tls_t *tls)
   if (!tls)
     return;
 
-  if (tls->con != NULL)
+  if (tls->con != NULL) {
     SSL_shutdown(tls->con);
+    SSL_free(tls->con);
+    tls->con = NULL;
+  }
 
   if (tls->ctx != NULL && tls->type != tls_slave) {
     SSL_CTX_free(tls->ctx);
     tls->ctx = NULL;
-  }
-
-  if (tls->con != NULL) {
-    SSL_free(tls->con);
-    tls->con = NULL;
   }
 
   su_home_unref(tls->home);
