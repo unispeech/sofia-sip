@@ -407,11 +407,15 @@ void tls_free(tls_t *tls)
   if (tls->con != NULL)
     SSL_shutdown(tls->con);
 
-  if (tls->ctx != NULL && tls->type != tls_slave)
+  if (tls->ctx != NULL && tls->type != tls_slave) {
     SSL_CTX_free(tls->ctx);
+    tls->ctx = NULL;
+  }
 
-  if (tls->bio_con != NULL)
-    BIO_free(tls->bio_con);
+  if (tls->con != NULL) {
+    SSL_free(tls->con);
+    tls->con = NULL;
+  }
 
   su_home_unref(tls->home);
 }
@@ -502,6 +506,8 @@ tls_t *tls_init_secondary(tls_t *master, int sock, int accept)
 
   if (tls->con == NULL) {
     tls_log_errors(1, "tls_init_secondary", 0);
+    BIO_free(tls->bio_con);
+    tls->bio_con = NULL;
     tls_free(tls);
     errno = EIO;
     return NULL;
