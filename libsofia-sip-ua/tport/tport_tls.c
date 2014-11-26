@@ -482,7 +482,6 @@ tls_t *tls_init_secondary(tls_t *master, int sock, int accept)
 
   if (tls) {
     tls->ctx = master->ctx;
-    tls->type = master->type;
     tls->accept = accept ? 1 : 0;
     tls->verify_outgoing = master->verify_outgoing;
     tls->verify_incoming = master->verify_incoming;
