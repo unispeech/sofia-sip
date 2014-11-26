@@ -519,12 +519,61 @@ tls_t *tls_init_secondary(tls_t *master, int sock, int accept)
   return tls;
 }
 
+/* Parse X509 extensions */
+static
+int tls_parse_extensions(tls_t *tls, STACK_OF(X509_EXTENSION) *extensions)
+{
+  int i, j, count, name_count;
+  X509_EXTENSION *ext;
+  GENERAL_NAMES *names;
+  GENERAL_NAME *name;
+
+  if (!extensions)
+    return -1;
+
+  /* Find matching subjectAltName */
+  count = sk_X509_EXTENSION_num(extensions);
+  for (i = 0; i < count; i++) {
+    ext = sk_X509_EXTENSION_value(extensions, i);
+    if (OBJ_obj2nid(X509_EXTENSION_get_object(ext)) != NID_subject_alt_name)
+      continue;
+
+    names = X509V3_EXT_d2i(ext);
+    if (!names)
+      continue;
+
+    name_count = sk_GENERAL_NAME_num(names);
+    for (j = 0; j < name_count; j++) {
+      name = sk_GENERAL_NAME_value(names, j);
+      if (!name)
+        continue;
+
+      switch (name->type) {
+        case GEN_DNS:
+          su_strlst_dup_append(tls->subjects, (const char*)name->d.dNSName->data);
+          break;
+        case GEN_URI:
+          su_strlst_dup_append(tls->subjects, (const char*)name->d.uniformResourceIdentifier->data);
+          break;
+        case GEN_IPADD:
+          su_strlst_dup_append(tls->subjects, (const char*)name->d.iPAddress->data);
+          break;
+        default:
+          break;
+      }
+      GENERAL_NAME_free(name);
+    }
+    sk_GENERAL_NAME_free(names);
+  }
+
+  return 0;
+}
+
 su_inline
 int tls_post_connection_check(tport_t *self, tls_t *tls)
 {
   X509 *cert;
-  int extcount;
-  int i, j, error;
+  int error;
 
   if (!tls) return -1;
 
@@ -544,41 +593,7 @@ int tls_post_connection_check(tport_t *self, tls_t *tls)
   if (!tls->subjects)
     return X509_V_ERR_OUT_OF_MEM;
 
-  extcount = X509_get_ext_count(cert);
-
-  /* Find matching subjectAltName.DNS */
-  for (i = 0; i < extcount; i++) {
-    X509_EXTENSION *ext;
-    char const *name;
-#if OPENSSL_VERSION_NUMBER >  0x10000000L
-    const X509V3_EXT_METHOD *vp;
-#else
-    X509V3_EXT_METHOD *vp;
-#endif
-    STACK_OF(CONF_VALUE) *values;
-    CONF_VALUE *value;
-    void *d2i;
-
-    ext = X509_get_ext(cert, i);
-    name = OBJ_nid2sn(OBJ_obj2nid(X509_EXTENSION_get_object(ext)));
-
-    if (strcmp(name, "subjectAltName") != 0)
-      continue;
-
-    vp = X509V3_EXT_get(ext); if (!vp) continue;
-    d2i = X509V3_EXT_d2i(ext);
-    values = vp->i2v(vp, d2i, NULL);
-
-    for (j = 0; j < sk_CONF_VALUE_num(values); j++) {
-      value = sk_CONF_VALUE_value(values, j);
-      if (strcmp(value->name, "DNS") == 0)
-        su_strlst_dup_append(tls->subjects, value->value);
-      if (strcmp(value->name, "IP") == 0)
-        su_strlst_dup_append(tls->subjects, value->value);
-      else if (strcmp(value->name, "URI") == 0)
-        su_strlst_dup_append(tls->subjects, value->value);
-    }
-  }
+  tls_parse_extensions(tls, cert->cert_info->extensions);
 
   {
     X509_NAME *subject;
