@@ -520,6 +520,10 @@
 #endif
 #endif // VC8+
 #endif
+/* Disable warnings related to the use of inet_ntoa() and friends */
+#if defined(_MSC_PT_VER) && (_MSC_PT_VER >= 120)
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
+#endif
 
 /* size_t/ssize_t modifiers
  * ref: http://msdn2.microsoft.com/en-us/library/tcxf1dw6.aspx */
