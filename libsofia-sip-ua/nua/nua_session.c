@@ -4810,6 +4810,7 @@ nua_server_methods_t const nua_options_server_methods =
  */
 int nua_options_server_respond(nua_server_request_t *sr, tagi_t const *tags)
 {
+  int rv;
   nua_handle_t *nh = sr->sr_owner;
   nua_t *nua = nh->nh_nua;
 
@@ -4829,5 +4830,10 @@ int nua_options_server_respond(nua_server_request_t *sr, tagi_t const *tags)
     }
   }
 
-  return nua_base_server_respond(sr, tags);
+  rv = nua_base_server_respond(sr, tags);
+
+  if (nh->nh_ds->ds_soa)
+    soa_destroy(nh->nh_ds->ds_soa), nh->nh_ds->ds_soa = NULL;
+
+  return rv;
 }
