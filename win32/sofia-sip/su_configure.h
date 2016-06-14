@@ -101,8 +101,10 @@
 #ifndef strncasecmp
 #define strncasecmp _strnicmp
 #endif
+#if _MSC_VER < 1900
 #ifndef snprintf
 #define snprintf    _snprintf
+#endif
 #endif
 #ifndef vsnprintf
 #ifndef _MSC_VER
