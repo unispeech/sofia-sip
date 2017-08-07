@@ -1569,14 +1569,14 @@ int agent_set_params(nta_agent_t *agent, tagi_t *tags)
   n += m;
 
   if (aliases != NONE) {
-    sip_contact_t const *m, *m_next;
+    sip_contact_t const *m_l, *m_next;
 
-    m = agent->sa_aliases;
+    m_l = agent->sa_aliases;
     agent->sa_aliases = sip_contact_dup(home, aliases);
 
-    for (; m; m = m_next) {	/* Free old aliases */
-      m_next = m->m_next;
-      su_free(home, (void *)m);
+    for (; m_l; m_l = m_next) {	/* Free old aliases */
+      m_next = m_l->m_next;
+      su_free(home, (void *)m_l);
     }
   }
 
@@ -3957,9 +3957,9 @@ int nta_msg_request_complete(msg_t *msg,
     sip->sip_to = sip_to_dup(home, leg->leg_remote);
   }
   else {
-    sip_to_t *to = sip_to_create(home, request_uri);
-    if (to) sip_aor_strip(to->a_url);
-    sip->sip_to = to;
+    sip_to_t *to_l = sip_to_create(home, request_uri);
+    if (to_l) sip_aor_strip(to_l->a_url);
+    sip->sip_to = to_l;
   }
 
   if (!sip->sip_from || !sip->sip_from || !sip->sip_to)
@@ -9698,15 +9698,15 @@ int outgoing_reply(nta_outgoing_t *orq, int status, char const *phrase,
      * and it is delivered back to NTA when the application next time
      * executes the su_root_t event loop.
      */
-    nta_agent_t *agent = orq->orq_agent;
-    su_root_t *root = agent->sa_root;
+    nta_agent_t *agent_l = orq->orq_agent;
+    su_root_t *root = agent_l->sa_root;
     su_msg_r su_msg = SU_MSG_R_INIT;
 
     if (su_msg_create(su_msg,
-		      su_root_task(root),
-		      su_root_task(root),
-		      outgoing_delayed_recv,
-		      sizeof(struct outgoing_recv_s)) == SU_SUCCESS) {
+              su_root_task(root),
+              su_root_task(root),
+              outgoing_delayed_recv,
+              sizeof(struct outgoing_recv_s)) == SU_SUCCESS) {
       struct outgoing_recv_s *a = su_msg_data(su_msg)->a_outgoing_recv;
 
       a->orq = orq;
@@ -9717,7 +9717,7 @@ int outgoing_reply(nta_outgoing_t *orq, int status, char const *phrase,
       orq->orq_status2b = &a->status;
 
       if (su_msg_send(su_msg) == SU_SUCCESS) {
-	return 0;
+        return 0;
       }
     }
   }

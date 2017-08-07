@@ -1368,7 +1368,7 @@ int win_localinfo(su_localinfo_t const hints[1], su_localinfo_t **rresult)
       su_sockaddr_t *su;
       socklen_t sulen;
       su_sockaddr_t su2[1];
-      int scope, flags = 0, gni_flags = 0;
+      int scope, flags_l = 0, gni_flags = 0;
 
       if (ua == NULL) {
 	/* There is no loopback interface in windows */
@@ -1438,7 +1438,7 @@ int win_localinfo(su_localinfo_t const hints[1], su_localinfo_t **rresult)
       if (canonname)
 	if (strchr(canonname, ':') ||
 	    strspn(canonname, "0123456789.") == strlen(canonname))
-	  flags |= LI_NUMERIC;
+	  flags_l |= LI_NUMERIC;
 
       if (!(li = calloc(1, sizeof(*li) + sulen + ifnamelen))) {
 	SU_DEBUG_1(("su_getlocalinfo: memory exhausted\n"));
@@ -1446,7 +1446,7 @@ int win_localinfo(su_localinfo_t const hints[1], su_localinfo_t **rresult)
       }
       *next = li, next = &li->li_next;
 
-      li->li_flags = flags;
+      li->li_flags = flags_l;
       li->li_family = su->su_family;
       li->li_scope = scope;
       li->li_index = if_index;

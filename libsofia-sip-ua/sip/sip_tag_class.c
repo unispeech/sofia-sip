@@ -475,13 +475,13 @@ tagi_t *sip_url_query_as_taglist(su_home_t *home, char const *query,
       v = (tag_value_t)h;
     }
     else {
-      char *s;
-      s = su_alloc(home, n + 1);
-      if (!s)
-	break;
-      memcpy(s, value, n + 1);
+      char *s_l;
+      s_l = su_alloc(home, n + 1);
+      if (!s_l)
+        break;
+      memcpy(s_l, value, n + 1);
       t = siptag_header_str;
-      v = (tag_value_t)s;
+      v = (tag_value_t)s_l;
     }
     retval[i].t_tag = t, retval[i].t_value = v;
   }

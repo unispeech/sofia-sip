@@ -1046,11 +1046,11 @@ int stun_bind(stun_handle_t *sh,
   if (!sh->sh_pri_addr[0].su_port) {
     /* no STUN server address, perform a DNS-SRV lookup */
     int err;
-    ta_list ta;
-    ta_start(ta, tag, value);
+    ta_list ta_l;
+    ta_start(ta_l, tag, value);
     SU_DEBUG_5(("Delaying STUN bind for DNS-SRV query.\n"));
-    err = priv_dns_queue_action(sh, stun_action_binding_request, sdf, magic, ta_tags(ta));
-    ta_end(ta);
+    err = priv_dns_queue_action(sh, stun_action_binding_request, sdf, magic, ta_tags(ta_l));
+    ta_end(ta_l);
     return err;
   }
 
@@ -1202,11 +1202,11 @@ int stun_test_nattype(stun_handle_t *sh,
   if (!sh->sh_pri_addr[0].su_port) {
     /* no STUN server address, perform a DNS-SRV lookup */
 
-    ta_list ta;
-    ta_start(ta, tag, value);
+    ta_list ta_l;
+    ta_start(ta_l, tag, value);
     SU_DEBUG_5(("Delaying STUN get-nat-type req. for DNS-SRV query.\n"));
-    err = priv_dns_queue_action(sh, stun_action_test_nattype, sdf, magic, ta_tags(ta));
-    ta_end(ta);
+    err = priv_dns_queue_action(sh, stun_action_test_nattype, sdf, magic, ta_tags(ta_l));
+    ta_end(ta_l);
 
     return err;
   }
@@ -2697,11 +2697,11 @@ int stun_test_lifetime(stun_handle_t *sh,
   if (!sh->sh_pri_addr[0].su_port) {
     /* no STUN server address, perform a DNS-SRV lookup */
 
-    ta_list ta;
-    ta_start(ta, tag, value);
+    ta_list ta_l;
+    ta_start(ta_l, tag, value);
     SU_DEBUG_5(("Delaying STUN get-lifetime req. for DNS-SRV query.\n"));
-    err = priv_dns_queue_action(sh, stun_action_test_lifetime, sdf, magic, ta_tags(ta));
-    ta_end(ta);
+    err = priv_dns_queue_action(sh, stun_action_test_lifetime, sdf, magic, ta_tags(ta_l));
+    ta_end(ta_l);
 
     return err;
   }

@@ -2419,17 +2419,17 @@ soa_init_sdp_connection_with_session(soa_session_t *ss,
   }
 
   if (li == NULL && ss->ss_address && sdp) {
-    sdp_connection_t const *c;
-    c = best_listed_address_in_session(sdp, ss->ss_address, ip4, ip6);
-    if (c) {
+    sdp_connection_t const *c_l;
+    c_l = best_listed_address_in_session(sdp, ss->ss_address, ip4, ip6);
+    if (c_l) {
       li = memset(li0, 0, sizeof li0);
-      if (c->c_addrtype == sdp_addr_ip4)
-	li0->li_family = AF_INET;
+      if (c_l->c_addrtype == sdp_addr_ip4)
+        li0->li_family = AF_INET;
 #if SU_HAVE_IN6
       else
-	li0->li_family = AF_INET6;
+        li0->li_family = AF_INET6;
 #endif
-      li0->li_canonname = (char *)c->c_address;
+      li0->li_canonname = (char *)c_l->c_address;
       source = "address from SOATAG_ADDRESS() list already in session";
     }
   }
@@ -2525,10 +2525,10 @@ soa_init_sdp_connection_with_session(soa_session_t *ss,
 
   /* Check if o= address is local */
   if (li == NULL && sdp && sdp->sdp_origin) {
-    char const *address = sdp->sdp_origin->o_address->c_address;
+    char const *address_l = sdp->sdp_origin->o_address->c_address;
 
     for (li = res; li; li = li->li_next) {
-      if (!su_casematch(li->li_canonname, address))
+      if (!su_casematch(li->li_canonname, address_l))
 	continue;
 #if HAVE_SIN6
       if (li->li_family == AF_INET6) {

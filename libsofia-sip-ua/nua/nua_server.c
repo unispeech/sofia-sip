@@ -635,12 +635,12 @@ int nua_server_respond(nua_server_request_t *sr, tagi_t const *tags)
 
     if (ltarget) {
       if (sr->sr_status < 300) {
-	nua_dialog_state_t *ds = nh->nh_ds;
-	msg_header_free(nh->nh_home, (msg_header_t *)ds->ds_ltarget);
-	ds->ds_ltarget = ltarget;
+        nua_dialog_state_t *ds_l = nh->nh_ds;
+        msg_header_free(nh->nh_home, (msg_header_t *)ds_l->ds_ltarget);
+        ds_l->ds_ltarget = ltarget;
       }
       else
-	msg_header_free(nh->nh_home, (msg_header_t *)ltarget);
+        msg_header_free(nh->nh_home, (msg_header_t *)ltarget);
     }
 
     return retval;

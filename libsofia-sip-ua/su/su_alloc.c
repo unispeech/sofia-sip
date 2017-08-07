@@ -823,15 +823,15 @@ void su_free(su_home_t *home, void *data)
 	su_home_stats_free(sub, data, preloaded, allocation->sua_size);
 
       if (allocation->sua_home) {
-	su_home_t *subhome = data;
-	su_block_t *sub = MEMLOCK(subhome);
+        su_home_t *subhome = data;
+        su_block_t *sub_l = MEMLOCK(subhome);
 
-	assert(sub->sub_ref != REF_MAX);
-	/* assert(sub->sub_ref > 0); */
+        assert(sub_l->sub_ref != REF_MAX);
+        /* assert(sub_l->sub_ref > 0); */
 
-	sub->sub_ref = 0;	/* Zap all references */
+        sub_l->sub_ref = 0;	/* Zap all references */
 
-	_su_home_deinit(subhome);
+        _su_home_deinit(subhome);
       }
 
 #if MEMCHECK != 0

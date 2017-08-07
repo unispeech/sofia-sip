@@ -1455,32 +1455,32 @@ issize_t msg_extract_payload(msg_t *msg, msg_pub_t *mo,
     pl->pl_data = b, pl->pl_len  = current;
 
     for (;current < body_len; current += rest) {
-      msg_header_t *h0 = h;
+      msg_header_t *h0_l = h;
 
       /* Allocate header structure for next payload chunk */
       if (!(h = msg_header_alloc(msg_home(msg), hr->hr_class, 0)))
-	return -1;
+        return -1;
       if (msg->m_chain)
-	msg_insert_here_in_chain(msg, msg_chain_tail(msg), h);
-      h0->sh_next = h;
+        msg_insert_here_in_chain(msg, msg_chain_tail(msg), h);
+      h0_l->sh_next = h;
 
       rest = body_len - current;
 
       if (!msg->m_streaming) {
-	x = msg_buf_exact(msg, rest);
-	if (x == NULL) {
-	  mo->msg_flags |= MSG_FLG_TOOLARGE;
-	  return -1;
-	}
+        x = msg_buf_exact(msg, rest);
+        if (x == NULL) {
+            mo->msg_flags |= MSG_FLG_TOOLARGE;
+            return -1;
+        }
       }
       else {
-	x = NULL;
+        x = NULL;
       }
 
       if (x) {
-	/* Mark the just-allocated buffer as used */
-	rest = msg->m_buffer->mb_size - msg->m_buffer->mb_used;
-	msg_buf_used(msg, rest);
+        /* Mark the just-allocated buffer as used */
+        rest = msg->m_buffer->mb_size - msg->m_buffer->mb_used;
+        msg_buf_used(msg, rest);
       }
 
       pl = h->sh_payload;
@@ -2771,18 +2771,18 @@ int msg_header_add_make(msg_t *msg,
 
   if (*hh && hc->hc_kind == msg_kind_list) {
     /* Add list items */
-    msg_header_t *h = *hh;
+    msg_header_t *h_l = *hh;
     msg_param_t **d;
     char *s0;
 
     skip_lws(&s);
 
-    d = msg_header_params(h->sh_common); assert(d);
+    d = msg_header_params(h_l->sh_common); assert(d);
 
-    msg_fragment_clear(h->sh_common);
+    msg_fragment_clear(h_l->sh_common);
 
     /* Remove empty headers */
-    for (hh = &h->sh_next; *hh; *hh = (*hh)->sh_next)
+    for (hh = &h_l->sh_next; *hh; *hh = (*hh)->sh_next)
       msg_chain_remove(msg, *hh);
 
     s0 = su_strdup(msg_home(msg), s);

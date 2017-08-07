@@ -1236,7 +1236,7 @@ int nua_base_client_check_restart(nua_client_request_t *cr,
       sip->sip_retry_after &&
       sip->sip_retry_after->af_delta < NH_PGET(nh, max_retry_after)) {
     su_timer_t *timer;
-    char phrase[18];		/* Retry After XXXX\0 */
+    char phrase_l[18];		/* Retry After XXXX\0 */
 
     timer = su_timer_create(su_root_task(nh->nh_nua->nua_root), 0);
 
@@ -1248,12 +1248,12 @@ int nua_base_client_check_restart(nua_client_request_t *cr,
 
     cr->cr_timer = timer;	/* This takes over cr reference from orq */
 
-    snprintf(phrase, sizeof phrase, "Retry After %u",
+    snprintf(phrase_l, sizeof phrase_l, "Retry After %u",
 	     (unsigned)sip->sip_retry_after->af_delta);
 
     orq = cr->cr_orq, cr->cr_orq = NULL;
     cr->cr_waiting = 1;
-    nua_client_report(cr, 100, phrase, NULL, orq, NULL);
+    nua_client_report(cr, 100, phrase_l, NULL, orq, NULL);
     nta_outgoing_destroy(orq);
     cr->cr_status = 0, cr->cr_phrase = NULL;
     return 1;

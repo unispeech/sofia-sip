@@ -1732,16 +1732,16 @@ int tport_bind_server(tport_master_t *mr,
 
       vtable = tport_vtable_by_name(ai->ai_canonname, public);
       if (!vtable)
-	continue;
+        continue;
 
       already = tport_addrinfo_find(res, ai);
       if (already != ai) {
-	char buf[TPORT_HOSTPORTSIZE];
-	su_sockaddr_t const *su = (void *)ai->ai_addr;
-	SU_DEBUG_7(("%s(%p): skipping duplicate %s on %s\n",
-		    __func__, (void *)mr, ai->ai_canonname,
-		    su_inet_ntop(su->su_family, SU_ADDR(su), buf, sizeof buf)));
-	continue;
+        char buf[TPORT_HOSTPORTSIZE];
+        su_sockaddr_t const *su_l = (void *)ai->ai_addr;
+        SU_DEBUG_7(("%s(%p): skipping duplicate %s on %s\n",
+                __func__, (void *)mr, ai->ai_canonname,
+                su_inet_ntop(su_l->su_family, SU_ADDR(su_l), buf, sizeof buf)));
+        continue;
       }
 
       tport_addrinfo_copy(ainfo, su, sizeof su, ai);
@@ -2730,15 +2730,15 @@ int tport_accept(tport_primary_t *pri, int events)
     return 0;
   }
   else {
-    int events = SU_WAIT_IN|SU_WAIT_ERR|SU_WAIT_HUP;
+    int events_l = SU_WAIT_IN|SU_WAIT_ERR|SU_WAIT_HUP;
 
     SU_CANONIZE_SOCKADDR(su);
 
     if (/* Name this transport */
-        tport_setname(self, pri->pri_protoname, ai, NULL) != -1
-	/* Register this secondary */
-	&&
-	tport_register_secondary(self, tport_wakeup, events) != -1) {
+      tport_setname(self, pri->pri_protoname, ai, NULL) != -1
+      /* Register this secondary */
+      &&
+      tport_register_secondary(self, tport_wakeup, events_l) != -1) {
 
       self->tp_conn_orient = 1;
       self->tp_is_connected = 1;

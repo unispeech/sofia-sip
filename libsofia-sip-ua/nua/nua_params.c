@@ -934,24 +934,24 @@ static int nhp_set_tags(su_home_t *home,
     else if (tag == nutag_appl_event) {
       int ok;
       sip_allow_events_t *appl_event = NULL;
-      tag_value_t value = t->t_value;
+      tag_value_t value_l = t->t_value;
 
-      if (value == 0)
-	value = (tag_value_t)NUA_NONE;
+      if (value_l == 0)
+        value_l = (tag_value_t)NUA_NONE;
 
       ok = nhp_merge_lists(home,
-			   sip_allow_events_class,
-			   &appl_event,
-			   nhp->nhp_appl_event,
-			   NHP_ISSET(nhp, appl_event), /* already set */
-			   0, /* dup it, don't make */
-			   1, /* merge with old value */
-			   value);
+               sip_allow_events_class,
+               &appl_event,
+               nhp->nhp_appl_event,
+               NHP_ISSET(nhp, appl_event), /* already set */
+               0, /* dup it, don't make */
+               1, /* merge with old value */
+               value_l);
 
       if (ok < 0)
-	return -1;
+        return -1;
       else if (ok)
-	NHP_SET(nhp, appl_event, appl_event);
+        NHP_SET(nhp, appl_event, appl_event);
     }
     /* NUTAG_APPL_METHOD(appl_method) */
     else if (tag == nutag_appl_method) {
