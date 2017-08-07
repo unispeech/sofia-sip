@@ -461,6 +461,7 @@ stun_handle_t *stun_handle_init(su_root_t *root,
 
   if (!stun) {
     SU_DEBUG_3(("%s: %s failed\n", __func__, "su_home_clone()"));
+    su_home_unref(stun->sh_home);
     return NULL;
   }
 
@@ -476,6 +477,7 @@ stun_handle_t *stun_handle_init(su_root_t *root,
   /* fail, if no server or a domain for a DNS-SRV lookup is specified */
   if (!server && !domain) {
     errno = ENOENT;
+    su_home_unref(stun->sh_home);
     return NULL;
   }
 
@@ -495,6 +497,7 @@ stun_handle_t *stun_handle_init(su_root_t *root,
     err = stun_atoaddr(stun->sh_home, AF_INET, &stun->sh_pri_info, server);
     if (err < 0) {
       errno = ENOENT;
+      su_home_unref(stun->sh_home);
       return NULL;
     }
   }
@@ -533,7 +536,7 @@ int stun_obtain_shared_secret(stun_handle_t *sh,
 {
 #if HAVE_OPENSSL
   int events = -1;
-  int one, err = -1;
+  int one = 0, err = -1;
   su_wait_t wait[1] = { SU_WAIT_INIT };
   su_socket_t s = INVALID_SOCKET;
   int family;
@@ -1300,7 +1303,7 @@ int stun_tls_callback(su_root_magic_t *m, su_wait_t *w, su_wakeup_arg_t *arg)
   stun_attr_t *password, *username;
   int state;
   int events = su_wait_events(w, sd->sd_socket), one = 0;
-  socklen_t onelen;
+  socklen_t onelen = sizeof one;
 
   enter;
 
@@ -2712,8 +2715,10 @@ int stun_test_lifetime(stun_handle_t *sh,
 	  TAG_END());
 
   sd = stun_discovery_create(sh, stun_action_test_lifetime, sdf, magic);
-  if ((index = assign_socket(sd, s, s_reg)) < 0)
+  if ((index = assign_socket(sd, s, s_reg)) < 0) {
+      ta_end(ta);
       return errno = EFAULT, -1;
+  }
 
   /* If no server given, use default address from stun_handle_init() */
   if (!server) {
@@ -2741,6 +2746,7 @@ int stun_test_lifetime(stun_handle_t *sh,
     STUN_ERROR(errno, su_setblocking);
 
     su_close(sockfdy);
+    ta_end(ta);
     return errno = EFAULT, -1;
   }
 
@@ -2752,11 +2758,13 @@ int stun_test_lifetime(stun_handle_t *sh,
 
   y_len = sizeof(y_addr);
   if (bind(sockfdy, (struct sockaddr *) &y_addr, y_len) < 0) {
+    ta_end(ta);
     return -1;
   }
 
   if (getsockname(sockfdy, (struct sockaddr *) &y_addr, &y_len) < 0) {
     STUN_ERROR(errno, getsockname);
+    ta_end(ta);
     return -1;
   }
 
@@ -2768,12 +2776,15 @@ int stun_test_lifetime(stun_handle_t *sh,
 
   SU_DEBUG_1(("%s: determining binding life time, this may take a while.\n", __func__));
 
-  if (stun_make_binding_req(sh, req, req->sr_msg, 0, 0) < 0)
+  if (stun_make_binding_req(sh, req, req->sr_msg, 0, 0) < 0) {
+    ta_end(ta);
     return -1;
+  }
 
   err = stun_send_binding_request(req, destination);
   if (err < 0) {
     stun_free_message(req->sr_msg);
+    ta_end(ta);
     return -1;
   }
 
