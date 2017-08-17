@@ -119,6 +119,7 @@
 #define random()      rand()
 
 #include <basetsd.h>
+#include <windows.h>
 
 #define SOFIA_ISIZE_T size_t
 #define SOFIA_USIZE_T size_t
