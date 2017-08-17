@@ -529,5 +529,10 @@
 
 /* size_t/ssize_t modifiers
  * ref: http://msdn2.microsoft.com/en-us/library/tcxf1dw6.aspx */
+#ifdef _WIN64
+#define MOD_ZD "%I64d"
+#define MOD_ZU "%I64u"
+#else
 #define MOD_ZD "%ld"
 #define MOD_ZU "%lu"
+#endif
