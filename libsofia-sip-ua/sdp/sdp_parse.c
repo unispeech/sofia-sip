@@ -91,7 +91,7 @@ struct sdp_parser_s {
 #define pr_error   pr_output.pru_error
 #define pr_session pr_output.pru_session
 
-#define STRICT(pr) (pr->pr_strict)
+#define PR_STRICT(pr) (pr->pr_strict)
 
 /* Static parser object used when running out of memory */
 static const struct sdp_parser_s no_mem_error =
@@ -361,7 +361,7 @@ static void parse_message(sdp_parser_t *p)
   sdp_zone_t **zones = NULL;
   sdp_attribute_t **attributes = &sdp->sdp_attributes;
 
-  if (!STRICT(p))
+  if (!PR_STRICT(p))
     strip = SPACE TAB;		/* skip initial whitespace */
   else
     strip = "";
@@ -917,7 +917,7 @@ static void parse_bandwidth(sdp_parser_t *p, char *r, sdp_bandwidth_t **result)
   else
     modifier = sdp_bw_x;
 
-  if (STRICT(p))
+  if (PR_STRICT(p))
     PARSE_CHECK_REST(p, r, "b");
 
   {
@@ -964,7 +964,7 @@ static void parse_time(sdp_parser_t *p, char *r, sdp_time_t **result)
   if (parse_ul(p, &r, &t->t_start, 0) ||
       parse_ul(p, &r, &t->t_stop, 0))
     parsing_error(p, "invalid time");
-  else if (STRICT(p)) {
+  else if (PR_STRICT(p)) {
     PARSE_CHECK_REST(p, r, "t");
   }
 }
@@ -996,7 +996,7 @@ static void parse_repeat(sdp_parser_t *p, char *d, sdp_repeat_t **result)
   int n, N;
   char *s;
   sdp_repeat_t *r;
-  int strict = STRICT(p);
+  int strict = PR_STRICT(p);
 
   /** Count number of intervals */
   for (N = 0, s = d; *s; ) {
@@ -1073,19 +1073,19 @@ static void parse_zone(sdp_parser_t *p, char *r, sdp_zone_t **result)
 
   /** Count number of timezones, check syntax */
   for (N = 0, s = r; *s;) {
-    if (!(is_posdigit(*s) || (!STRICT(p) && (*s) == '0')))
+    if (!(is_posdigit(*s) || (!PR_STRICT(p) && (*s) == '0')))
       break;
     do { s++; } while (is_digit(*s));
-    if (!(i = STRICT(p) ? is_space(*s) : strspn(s, SPACE TAB)))
+    if (!(i = PR_STRICT(p) ? is_space(*s) : strspn(s, SPACE TAB)))
       break;
     s += i;
-    if (!(*s == '-' || is_posdigit(*s) || (!STRICT(p) && (*s) == '0')))
+    if (!(*s == '-' || is_posdigit(*s) || (!PR_STRICT(p) && (*s) == '0')))
       break;
     do { s++; } while (is_digit(*s));
-    if (*s && strchr(STRICT(p) ? "dhms" : "dhmsDHMS", *s))
+    if (*s && strchr(PR_STRICT(p) ? "dhms" : "dhmsDHMS", *s))
       s++;
     N++;
-    if (!(i = STRICT(p) ? is_space(*s) : strspn(s, SPACE TAB)))
+    if (!(i = PR_STRICT(p) ? is_space(*s) : strspn(s, SPACE TAB)))
       break;
     s += i;
   }
@@ -1162,7 +1162,7 @@ static void parse_key(sdp_parser_t *p, char *r, sdp_key_t **result)
 
     /* These are defined as key-sensitive in RFC 4566 */
 #define MATCH(s, tok) \
-    (STRICT(p) ? su_strmatch((s), (tok)) : su_casematch((s), (tok)))
+    (PR_STRICT(p) ? su_strmatch((s), (tok)) : su_casematch((s), (tok)))
 
     if (MATCH(s, "clear"))
       k->k_method = sdp_key_clear, k->k_method_name = "clear";
@@ -1172,7 +1172,7 @@ static void parse_key(sdp_parser_t *p, char *r, sdp_key_t **result)
       k->k_method = sdp_key_uri, k->k_method_name = "uri";
     else if (MATCH(s, "prompt"))
       k->k_method = sdp_key_prompt, k->k_method_name = "prompt";
-    else if (!STRICT(p))
+    else if (!PR_STRICT(p))
       k->k_method = sdp_key_x, k->k_method_name = s;
     else {
       parsing_error(p, "invalid key method");
@@ -1327,7 +1327,7 @@ static void parse_media(sdp_parser_t *p, char *r, sdp_media_t **result)
     return;
   }
 
-  if (!STRICT(p) && su_casematch(s, "RTP"))
+  if (!PR_STRICT(p) && su_casematch(s, "RTP"))
     m->m_proto = sdp_proto_rtp, m->m_proto_name = "RTP/AVP";
   else
     sdp_media_transport(m, s);
@@ -1627,7 +1627,7 @@ static int parse_rtpmap(sdp_parser_t *p, char *r, sdp_media_t *m)
   char *encoding, *params;
   sdp_rtpmap_t *rm;
 
-  int strict = STRICT(p);
+  int strict = PR_STRICT(p);
 
   if (parse_ul(p, &r, &pt, 128)) {
     if (strict)
@@ -1677,7 +1677,7 @@ static int parse_fmtp(sdp_parser_t *p, char *r, sdp_media_t *m)
   unsigned long pt;
   sdp_rtpmap_t *rm;
 
-  int strict = STRICT(p);
+  int strict = PR_STRICT(p);
 
   if (parse_ul(p, &r, &pt, 128)) {
     if (strict)
@@ -1723,7 +1723,7 @@ static void parse_descs(sdp_parser_t *p,
   sdp_bandwidth_t **bandwidths = NULL;
   sdp_attribute_t **attributes = NULL;
 
-  if (!STRICT(p))
+  if (!PR_STRICT(p))
     strip = SPACE TAB;		/* skip initial whitespace */
   else
     strip = "";
