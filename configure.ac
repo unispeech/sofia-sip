@@ -46,6 +46,9 @@ AC_CHECK_TOOL(LD, ld, ld)
 AC_PROG_LIBTOOL
 AM_PROG_CC_C_O
 
+dnl Suppress warning: ar: 'u' modifier ignored since 'D' is the default
+AC_SUBST(AR_FLAGS, [cr])
+
 SAC_CFLAGS
 SAC_CHECK_COMPILATION_ENVIRONMENT
 SAC_COVERAGE
