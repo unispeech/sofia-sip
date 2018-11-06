@@ -521,7 +521,7 @@ tls_t *tls_init_secondary(tls_t *master, int sock, int accept)
 
 /* Parse X509 extensions */
 static
-int tls_parse_extensions(tls_t *tls, STACK_OF(X509_EXTENSION) *extensions)
+int tls_parse_extensions(tls_t *tls, const STACK_OF(X509_EXTENSION) *extensions)
 {
   int i, j, count, name_count;
   X509_EXTENSION *ext;
