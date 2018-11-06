@@ -450,7 +450,11 @@ tls_t *tls_init_master(tls_issues_t *ti)
     return NULL;
   }
 
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
   RAND_pseudo_bytes(sessionId, sizeof(sessionId));
+#else
+  RAND_bytes(sessionId, sizeof(sessionId));
+#endif
 
   SSL_CTX_set_session_id_context(tls->ctx,
                                  (void*) sessionId,
