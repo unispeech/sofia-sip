@@ -593,7 +593,11 @@ int tls_post_connection_check(tport_t *self, tls_t *tls)
   if (!tls->subjects)
     return X509_V_ERR_OUT_OF_MEM;
 
+#if OPENSSL_VERSION_NUMBER >= 0x10100000L
+  tls_parse_extensions(tls, X509_get0_extensions(cert));
+#else
   tls_parse_extensions(tls, cert->cert_info->extensions);
+#endif
 
   {
     X509_NAME *subject;
