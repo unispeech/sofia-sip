@@ -1289,7 +1289,7 @@ nua_stack_init_registrations(nua_t *nua)
   nua_registration_t **nr_list = &nua->nua_registrations, **nr_next;
   nua_handle_t **nh_list;
   nua_handle_t *dnh = nua->nua_dhandle;
-  sip_via_t const *v;
+  sip_via_t *v;
 
   /* Remove existing, local address based registrations and count the
      rest */
