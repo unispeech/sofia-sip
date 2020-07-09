@@ -1890,6 +1890,9 @@ sdp_rtpmap_t *sdp_rtpmap_find_matching(sdp_rtpmap_t const *list,
     if (!su_casematch(rm->rm_encoding, list->rm_encoding))
       continue;
 
+    if (rm->rm_pt != list->rm_pt )
+      continue;
+
     lparam = rm->rm_params; rparam = list->rm_params;
 
     if (lparam == rparam)
